@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>G112 月报 | 2026年7月</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#f1f5f9;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6}
+header{position:sticky;top:0;z:50;color:#fff;background:linear-gradient(135deg,#1a1d3a,#23264d 60%,#2d2060);box-shadow:0 4px 24px #0003}
+.top-bar{max-width:1200px;margin:0 auto;padding:0 24px}
+.brand-row{height:56px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.1)}
+.dot{display:inline-flex;gap:1px}
+.dot span{width:8px;height:8px;border-radius:50%}
+.dot span:nth-child(1){background:#5865F2}
+.dot span:nth-child(2){background:#7289da;opacity:.7}
+.brand-row strong{font-size:18px;font-weight:600;letter-spacing:.3px}
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;background:rgba(88,101,242,.25);border:1px solid rgba(88,101,242,.4);color:#a5b4fc;font:600 11px monospace}
+.tag2{color:rgba(255,255,255,.35);font:11px monospace;display:none}
+@media(min-width:640px){.tag2{display:inline}}
+.nav-row{display:flex;gap:4px;overflow-x:auto;padding:6px 0}
+.nav-row button{border:0;background:transparent;color:rgba(255,255,255,.55);border-radius:6px;padding:6px 12px;white-space:nowrap;font-size:12px;font-weight:500;cursor:pointer;transition:.15s}
+.nav-row button:hover,.nav-row button.active{background:rgba(255,255,255,.2);color:#fff}
+.main-wrap{max-width:1200px;margin:0 auto;padding:24px 24px 80px}
+.module{display:none}
+.module.active{display:block}
+
+/* Cards */
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.sec-head .bar{width:4px;height:18px;border-radius:2px;background:#5865F2;flex-shrink:0}
+.sec-head h2{margin:0;font-size:16px;font-weight:600}
+.sec-head small{color:#94a3b8;font-size:12px;font-weight:400}
+
+/* Verdict */
+.verdict{border-left:4px solid #5865F2;border-radius:12px;padding:16px 20px}
+.verdict .v-label{font-size:11px;font-weight:600;color:#5865F2;margin-bottom:4px}
+.verdict .v-text{font-size:13px;line-height:1.65}
+
+/* Metric grid */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.mcard{background:#f8fafc;border-radius:10px;padding:14px;position:relative;overflow:hidden}
+.mcard .accent{position:absolute;top:0;left:0;right:0;height:3px}
+.mcard .mlabel{font-size:10px;color:#94a3b8;margin-bottom:2px}
+.mcard .mval{font:700 26px monospace;line-height:1.1;margin-bottom:4px}
+.mcard .mchg{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600}
+.mcard .mchg.up{color:#16a34a}
+.mcard .mchg.dn{color:#dc2626}
+.mcard .mchg.flat{color:#94a3b8}
+.mcard .mdesc{font-size:11px;color:#94a3b8;margin-top:2px}
+
+/* Server tabs */
+.server-tabs{display:flex;gap:4px;margin-bottom:14px}
+.server-tabs button{border:1px solid #e2e8f0;background:#fff;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer}
+.server-tabs button.active{background:#5865F2;color:#fff;border-color:#5865F2}
+
+/* Chart card */
+.chart-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;margin-bottom:16px}
+.chart-card h3{font-size:13px;font-weight:600;margin:0 0 2px}
+.chart-card .chsub{font-size:11px;color:#94a3b8;margin-bottom:10px}
+
+/* Insight cards */
+.isgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.icard{border-radius:10px;padding:16px}
+.icard.pos{border:1px solid #bbf7d0;background:#f0fdf4}
+.icard.neg{border:1px solid #fecaca;background:#fef2f2}
+.icard.info{border:1px solid #bfdbfe;background:#eff6ff}
+.icard h4{font-size:13px;font-weight:600;margin:0 0 6px}
+.icard p{font-size:12px;color:#64748b;margin:0;line-height:1.6}
+
+/* Plan section */
+.plan-goal{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin-bottom:16px}
+.plan-goal .pg-label{font-size:11px;font-weight:600;color:#5865F2;margin-bottom:4px}
+.plan-goal .pg-text{font-size:13px;line-height:1.65}
+.pstrats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.pstrats .psitem{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 14px;font-size:12px}
+.pstrats .psnum{width:22px;height:22px;border-radius:50%;background:rgba(88,101,242,.1);color:#5865F2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.wcard{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px}
+.wcard .whdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.wcard .wweek{font-size:11px;font-weight:700;color:#5865F2}
+.wcard .wdate{font-size:11px;color:#94a3b8;font-family:monospace}
+.wcard .wtheme{font-size:12px;font-weight:600;color:#1e293b;margin-bottom:10px}
+.wcard .witem{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px}
+.wcard .wdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.wcard .wdot.conf{background:#16a34a}
+.wcard .wdot.tent{background:#f59e0b}
+.wcard .wdot.plan{background:#94a3b8}
+.wcard .winfo{flex:1;min-width:0}
+.wcard .wtitle{font-size:12px;color:#1e293b;line-height:1.4}
+.wcard .wbadge{display:inline-block;margin-top:2px;font-size:10px;padding:1px 6px;border-radius:4px;font-weight:500}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#f8fafc;color:#64748b;text-align:left;padding:9px 10px;border-bottom:2px solid #e2e8f0;font-size:11px}
+td{padding:9px 10px;border-bottom:1px solid #e2e8f0;vertical-align:top}
+.table-wrap{overflow-x:auto}
+
+/* Sentiment */
+.sent-row{display:flex;flex-wrap:wrap;align-items:center;gap:28px;justify-content:center;margin:12px 0}
+.donut{width:160px;height:160px;border-radius:50%;position:relative;flex-shrink:0}
+.donut-inner{position:absolute;inset:28%;background:#fff;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-inner b{font:700 22px monospace}
+.donut-inner small{font-size:10px;color:#94a3b8}
+.legend{min-width:160px}
+.legend .lr{display:flex;align-items:center;gap:7px;margin:6px 0}
+.legend .ldot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.legend .lname{font-size:12px;font-weight:600}
+.legend .lval{font:600 12px monospace;margin-left:auto}
+
+/* Quotes */
+.quote{padding:10px 12px;margin:6px 0;background:#f8fafc;border-left:3px solid #94a3b8;font-size:11px;border-radius:0 6px 6px 0}
+.quote a{display:block;color:#4f46e5;word-break:break-all;margin-top:3px;font-size:11px}
+
+/* Competitor detail */
+.comp-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.comp-accent{height:4px}
+.comp-body{padding:20px}
+.comp-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.comp-hdr h3{margin:0 0 2px;font-size:17px;font-weight:700}
+.comp-hdr .csub{font-size:11px;color:#94a3b8}
+.comp-senti{display:flex;align-items:center;gap:6px;background:rgba(88,101,242,.05);border-radius:8px;padding:5px 12px}
+.comp-senti .csval{font-size:13px;font-weight:700}
+.comp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:16px}
+.comp-kpi{background:#f8fafc;border-radius:8px;padding:10px}
+.comp-kpi .ckval{font:700 16px monospace}
+.comp-kpi .cklab{font-size:10px;color:#94a3b8}
+.comp-2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:640px){.comp-2col{grid-template-columns:1fr}}
+.comp-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px}
+.comp-box .cbhdr{display:flex;justify-content:space-between;margin-bottom:8px}
+.comp-box .cbhdr b{font-size:12px;color:#475569}
+.comp-box .cbhdr span{font-size:11px;color:#94a3b8;background:#f1f5f9;padding:1px 7px;border-radius:10px}
+.comp-pos{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px}
+.comp-neg{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px}
+.tag-pos{display:inline-block;width:4px;height:14px;border-radius:2px;background:#16a34a;margin-right:5px;vertical-align:middle}
+.tag-neg{display:inline-block;width:4px;height:14px;border-radius:2px;background:#dc2626;margin-right:5px;vertical-align:middle}
+.sotop{margin-bottom:8px}
+.sotop .sonum{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;flex-shrink:0;margin-right:5px}
+.sotop .sotitle{font-size:11px;font-weight:600;color:#1e293b}
+.sodesc{margin:0 0 0 23px;font-size:10px;color:#64748b;line-height:1.5}
+
+/* Responsive */
+@media(max-width:640px){
+.main-wrap{padding:16px 10px}
+.top-bar{padding:0 10px}
+.brand-row strong{font-size:16px}
+.tag2{display:none}
+}
+.actbadge{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;display:inline-block}
+.actbadge.acq{background:rgba(59,130,246,.1);color:#3b82f6}
+.actbadge.eng{background:rgba(139,92,246,.1);color:#8b5cf6}
+.actbadge.ret{background:rgba(16,185,129,.1);color:#10b981}
+.actbadge.eco{background:rgba(245,158,11,.1);color:#f59e0b}.minsi{font-size:10px;color:#5865F2;font-style:italic;margin-top:4px;line-height:1.4}
+.minsi.neg{color:#dc2626}
+.sinsi{font-size:11px;color:#5865F2;font-style:italic;margin-top:10px;line-height:1.6;padding:8px 12px;background:rgba(88,101,242,.04);border-left:2px solid #5865F2;border-radius:0 6px 6px 0}
+
+</style>
+</head>
+<body>
+
+<header>
+<div class="top-bar">
+<div class="brand-row">
+<div class="dot"><span></span><span></span></div>
+<strong>G112 月报</strong>
+<span class="tag">2026年7月</span>
+<span class="tag2">SEA + EU 双服</span>
+</div>
+<nav class="nav-row">
+<button class="active" data-target="community">社区数据 · 提升规划</button>
+<button data-target="activities">社区活动</button>
+<button data-target="sentiment">社区舆情</button>
+<button data-target="mod">MOD管理员</button>
+<button data-target="competitors">竞品动态</button>
+</nav>
+</div>
+</header>
+
+<main class="main-wrap">
+
+<!-- ===== 社区数据 · 提升规划 ===== -->
+<section id="community" class="module active">
+
+<!-- 月度核心判断 -->
+<div class="card verdict">
+<div class="v-label">月度核心判断</div>
+<div class="v-text">2026年7月 SEA+EU双服社区规模、消息量全面增长。SEA月活占比3.46%（+0.52pp），消息量+6.6%；EU消息量暴增24.7%，人均聊天飙至211条/人。但两服留存同步下滑（SEA -1.08pp / EU -1.62pp），增长更多来自新用户流入，存量深度活跃仍需加强。</div>
+</div>
+
+<!-- SEA 核心指标 -->
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>SEA 服 · 核心生态数据</h2><small>月度核心指标</small></div>
+<div class="mgrid">
+<div class="mcard"><div class="accent" style="background:#5865F2"></div><div class="mlabel">社区规模</div><div class="mval">65,080</div><div class="mchg up">环比上月 +1.3%</div><div class="mdesc">Discord 服务器当前总成员数</div><div class="minsi">增速虽缓但持续正向，基本盘稳固，自然增长通道未关闭。</div></div>
+<div class="mcard"><div class="accent" style="background:#22c55e"></div><div class="mlabel">月活占比</div><div class="mval">3.46%</div><div class="mchg up">环比上月 +0.52pp</div><div class="mdesc">月内有互动的唯一用户占总成员比例</div><div class="minsi">+0.52pp是积极信号，但3.46%绝对值仍偏低——活跃转化空间巨大，需更多促活抓手。</div></div>
+<div class="mcard"><div class="accent" style="background:#f59e0b"></div><div class="mlabel">7日留存</div><div class="mval">23.46%</div><div class="mchg dn">环比上月 -1.08pp</div><div class="mdesc">新用户7天后仍留在社区的比例</div><div class="minsi neg">连续两月下滑（-1.08pp），增长依赖新用户流入而非存量粘性，留存机制亟待加强。</div></div>
+</div>
+<div class="mgrid" style="margin-top:12px">
+<div class="mcard"><div class="accent" style="background:#94a3b8"></div><div class="mlabel">消息总量</div><div class="mval">33,341</div><div class="mchg up">环比上月 +6.6%</div><div class="mdesc">月内全服务器消息总量</div></div>
+<div class="mcard"><div class="accent" style="background:#94a3b8"></div><div class="mlabel">聊天人数</div><div class="mval">589</div><div class="mchg up">环比上月 +13.5%</div><div class="mdesc">月内有发言的唯一用户数</div></div>
+<div class="mcard"><div class="accent" style="background:#94a3b8"></div><div class="mlabel">人均聊天</div><div class="mval">56.61</div><div class="mchg dn">环比上月 -6.0%</div><div class="mdesc">消息总量 ÷ 聊天人数</div></div>
+</div>
+</div>
+
+<!-- SEA 周数据图表 -->
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>SEA 服 · 周数据趋势</h2><small>W1(1-7) – W4(23-30)</small></div>
+
+<div class="chart-card">
+<h3>月活占比 3.46%，逐周稳步上升</h3>
+<div class="chsub">月活占比 % · 各周内有互动的唯一用户占总成员数比例</div>
+<svg viewBox="0 0 700 220" width="100%" height="220" style="display:block;overflow:visible">
+<line x1="48" y1="168" x2="684" y2="168" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="48" y1="130" x2="684" y2="130" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="48" y1="92" x2="684" y2="92" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="48" y1="54" x2="684" y2="54" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="48" y1="16" x2="684" y2="16" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="42" y="172" text-anchor="end" font-size="10" fill="#94a3b8">0%</text>
+<text x="42" y="134" text-anchor="end" font-size="10" fill="#94a3b8">1%</text>
+<text x="42" y="96" text-anchor="end" font-size="10" fill="#94a3b8">2%</text>
+<text x="42" y="58" text-anchor="end" font-size="10" fill="#94a3b8">3%</text>
+<text x="42" y="20" text-anchor="end" font-size="10" fill="#94a3b8">4%</text>
+<rect x="80" y="116" width="100" height="52" fill="#5865F2" rx="3" opacity=".9"/>
+<rect x="242" y="104" width="100" height="64" fill="#5865F2" rx="3" opacity=".9"/>
+<rect x="404" y="99" width="100" height="69" fill="#5865F2" rx="3" opacity=".9"/>
+<rect x="566" y="93" width="100" height="75" fill="#5865F2" rx="3" opacity=".9"/>
+<text x="130" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W1 (3.15%)</text>
+<text x="292" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W2 (3.28%)</text>
+<text x="454" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W3 (3.33%)</text>
+<text x="616" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W4 (3.42%)</text>
+</svg>
+</div>
+
+<div class="chart-card">
+<h3>7日留存 23.46%，波动中略降</h3>
+<div class="chsub">7日留存率 % · 新成员加入后第7天仍留在社区的比例</div>
+<svg viewBox="0 0 700 220" width="100%" height="220" style="display:block;overflow:visible">
+<line x1="48" y1="168" x2="684" y2="168" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="48" y1="112" x2="684" y2="112" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="48" y1="56" x2="684" y2="56" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="42" y="172" text-anchor="end" font-size="10" fill="#94a3b8">0%</text>
+<text x="42" y="116" text-anchor="end" font-size="10" fill="#94a3b8">15%</text>
+<text x="42" y="60" text-anchor="end" font-size="10" fill="#94a3b8">30%</text>
+<rect x="80" y="78" width="100" height="90" fill="#f59e0b" rx="3" opacity=".9"/>
+<rect x="242" y="78" width="100" height="90" fill="#f59e0b" rx="3" opacity=".9"/>
+<rect x="404" y="80" width="100" height="88" fill="#f59e0b" rx="3" opacity=".9"/>
+<rect x="566" y="168" width="100" height="0" fill="#94a3b8" rx="3" opacity=".5"/>
+<text x="130" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W1 (23.80%)</text>
+<text x="292" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W2 (23.81%)</text>
+<text x="454" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W3 (23.46%)</text>
+<text x="616" y="190" text-anchor="middle" font-size="11" fill="#94a3b8">W4 (N/A)</text>
+</svg>
+</div>
+
+<div class="chart-card">
+<h3>消息量与聊天人数同步上升，W4消息量创新高</h3>
+<div class="chsub">左轴：消息数（柱）· 右轴：聊天人数（折线）</div>
+<svg viewBox="0 0 700 240" width="100%" height="240" style="display:block;overflow:visible">
+<line x1="52" y1="190" x2="648" y2="190" stroke="#e2e8f0" stroke-width="1"/>
+<line x1="52" y1="142" x2="648" y2="142" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="52" y1="94" x2="648" y2="94" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="52" y1="46" x2="648" y2="46" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="46" y="194" text-anchor="end" font-size="10" fill="#94a3b8">0</text>
+<text x="46" y="146" text-anchor="end" font-size="10" fill="#94a3b8">10k</text>
+<text x="46" y="98" text-anchor="end" font-size="10" fill="#94a3b8">20k</text>
+<text x="46" y="50" text-anchor="end" font-size="10" fill="#94a3b8">30k</text>
+<rect x="80" y="66" width="90" height="124" fill="#5865F2" rx="3" opacity=".85"/>
+<rect x="245" y="65" width="90" height="125" fill="#5865F2" rx="3" opacity=".85"/>
+<rect x="410" y="58" width="90" height="132" fill="#5865F2" rx="3" opacity=".85"/>
+<rect x="575" y="32" width="90" height="158" fill="#5865F2" rx="3" opacity=".85"/>
+<polyline points="125,132 290,125 455,122 620,116" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+<circle cx="125" cy="132" r="4" fill="#22c55e"/><circle cx="290" cy="125" r="4" fill="#22c55e"/>
+<circle cx="455" cy="122" r="4" fill="#22c55e"/><circle cx="620" cy="116" r="4" fill="#22c55e"/>
+<text x="125" y="214" text-anchor="middle" font-size="11" fill="#94a3b8">W1</text>
+<text x="290" y="214" text-anchor="middle" font-size="11" fill="#94a3b8">W2</text>
+<text x="455" y="214" text-anchor="middle" font-size="11" fill="#94a3b8">W3</text>
+<text x="620" y="214" text-anchor="middle" font-size="11" fill="#94a3b8">W4</text>
+</svg>
+</div>
+<div class="sinsi">周度趋势表明社区处于健康爬坡期：月活占比W1(3.15%)→W4(3.42%)稳步抬升，W4消息量33,598条创全月峰值，增长动能尚未见顶。但7日留存W4数据缺失、前3周持续微降(-0.35pp)，需警惕上行期留存掉队的剪刀差风险。</div>
+</div>
+
+<!-- SEA 洞察 -->
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>SEA 服 · 核心洞察</h2><small>基于本月数据波动的关键发现</small></div>
+<div class="isgrid">
+<div class="icard pos"><h4>规模与活跃度全面上升，W4消息量创新高</h4><p>7月社区规模+1.3%、月活占比+0.52pp、消息量+6.6%，W4消息量达33,598条为全月峰值。增速来自新用户持续流入，社区基本面向好。</p><p style="font-size:11px;color:#166534;font-weight:600;margin-top:6px">判断：社区处于自然增长红利期，应抓住窗口加大活动投放，将增量转化为存量。</p></div>
+<div class="icard neg"><h4>留存下滑，增长依赖新用户而非存量深化</h4><p>7日留存23.46%（-1.08pp），人均聊天56.61条/人（-6.0%）。新用户量大但粘性不足，存量用户深度参与度下降需重点关注。</p><p style="font-size:11px;color:#991b1b;font-weight:600;margin-top:6px">判断：如果留存继续下滑，规模增长的数字红利将被稀释——8月必须锁定留存为第一优先级。</p></div>
+<div class="icard info"><h4>聊天人数+13.5%，社区互动面在拓宽</h4><p>聊天人数从519增至589人（+13.5%），说明更多人开始参与发言。但人均消息下降，需要引导新用户从“浅层参与”走向“深度互动”。</p><p style="font-size:11px;color:#1e40af;font-weight:600;margin-top:6px">判断：互动面拓宽是留存改善的前提条件，关键在于建立“首次发言→二次互动→日常参与”的行为阶梯。</p></div>
+</div>
+</div>
+
+<!-- EU 核心指标 -->
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>EU 服 · 核心生态数据</h2><small>月度核心指标</small></div>
+<div class="mgrid">
+<div class="mcard"><div class="accent" style="background:#5865F2"></div><div class="mlabel">社区规模</div><div class="mval">26,469</div><div class="mchg up">环比上月 +3.4%</div><div class="mdesc">Discord 服务器当前总成员数</div></div>
+<div class="mcard"><div class="accent" style="background:#22c55e"></div><div class="mlabel">月活占比</div><div class="mval">6.24%</div><div class="mchg dn">环比上月 -0.11pp</div><div class="mdesc">月内有互动的唯一用户占总成员比例</div></div>
+<div class="mcard"><div class="accent" style="background:#f59e0b"></div><div class="mlabel">7日留存</div><div class="mval">24.04%</div><div class="mchg dn">环比上月 -1.62pp</div><div class="mdesc">新用户7天后仍留在社区的比例（W1数据）</div></div>
+</div>
+<div class="mgrid" style="margin-top:12px">
+<div class="mcard"><div class="accent" style="background:#94a3b8"></div><div class="mlabel">消息总量</div><div class="mval">99,920</div><div class="mchg up">环比上月 +24.7%</div><div class="mdesc">月内全服务器消息总量</div></div>
+<div class="mcard"><div class="accent" style="background:#94a3b8"></div><div class="mlabel">聊天人数</div><div class="mval">473</div><div class="mchg dn">环比上月 -14.2%</div><div class="mdesc">月内有发言的唯一用户数</div></div>
+<div class="mcard"><div class="accent" style="background:#94a3b8"></div><div class="mlabel">人均聊天</div><div class="mval">211.2</div><div class="mchg up">环比上月 +45.2%</div><div class="mdesc">消息总量 ÷ 聊天人数</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>EU 服 · 核心洞察</h2></div>
+<div class="isgrid">
+<div class="icard pos"><h4>消息量暴增24.7%，核心圈层深度活跃</h4><p>7月消息量达99,920条（+24.7%），人均聊天飙升至211.2条/人（+45.2%）。核心玩家圈层粘性极强，内容消费与产出深度远超SEA。</p></div>
+<div class="icard neg"><h4>「少而精」趋势：聊天人数下降14.2%</h4><p>消息量暴增但聊天人数从551降至473人（-14.2%），边缘用户在流失。呈现核心用户更深度活跃、外围用户逐渐沉默的分化趋势。</p></div>
+<div class="icard neg"><h4>留存持续下滑，与SEA面临相同挑战</h4><p>EU留存24.04%（-1.62pp），与SEA同步下滑。两服均需加强新用户引导和留存机制建设。</p></div>
+</div>
+</div>
+
+<!-- 下月提升规划 (SEA 8月) -->
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#f59e0b"></div><h2>SEA 服 · 8月提升规划</h2><small>2026年8月 · 基于7月数据，聚焦关键节点运营</small></div>
+
+<div class="plan-goal">
+<div class="pg-label">月度目标</div>
+<div class="pg-text">以811预约H5宣推和820爽玩服上线为双核心节点，通过DC私信引导实现预约→上线→赛道选边的完整转化链。延续赛事竞猜与车辆分享等常态化活动稳住核心圈层，同步优化新用户欢迎与回流签到机制，目标月活占比提升至4.0%+、新用户7日留存回升至25%+。</div>
+</div>
+
+<div class="pstrats">
+<div class="psitem"><div class="psnum">1</div>节点驱动：围绕811预约H5宣推与820爽玩服上线双节点，DC私信精准触达引导转化</div>
+<div class="psitem"><div class="psnum">2</div>社区互动：820上线日同步开展DC赛道选边Bot活动，提升端内赛道选边社区讨论氛围</div>
+<div class="psitem"><div class="psnum">3</div>稳圈层：延续赛事竞猜、车辆分享、挑战赛等常态化活动，维持核心用户粘性</div>
+<div class="psitem"><div class="psnum">4</div>承接新用户：增加欢迎帖、新手问答、回流签到，建立反馈闭环</div>
+</div>
+
+<div class="week-grid">
+<div class="wcard">
+<div class="whdr"><span class="wweek">W1</span><span class="wdate">8.04 – 8.10</span></div>
+<div class="wtheme">预约预热期</div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle">预约H5宣推素材准备（图文/视频/预告帖）</div><span class="wbadge actbadge acq">增量</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle">DC服务器预约公告帖发布</div><span class="wbadge actbadge acq">增量</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot plan"></div><div class="winfo"><div class="wtitle">赛事竞猜活动持续运营</div><span class="wbadge actbadge eng">促活</span></div></div></div>
+</div>
+<div class="wcard">
+<div class="whdr"><span class="wweek">W2</span><span class="wdate">8.11 – 8.17</span></div>
+<div class="wtheme">811预约H5宣推期</div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle"><b>8.11 DC私信群发</b>：引导预约转化，附H5链接+奖励说明</div><span class="wbadge actbadge acq">增量</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle">社区预约倒计时帖 + 预约奖励公布</div><span class="wbadge actbadge eng">促活</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot plan"></div><div class="winfo"><div class="wtitle">车辆分享/挑战赛常态化活动</div><span class="wbadge actbadge eng">促活</span></div></div></div>
+</div>
+<div class="wcard">
+<div class="whdr"><span class="wweek">W3</span><span class="wdate">8.18 – 8.24</span></div>
+<div class="wtheme">820爽玩服上线爆发期</div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle"><b>8.20 DC私信提醒上线</b>：爽玩服开放通知 + 赛道选边活动引导</div><span class="wbadge actbadge acq">增量</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle"><b>DC赛道选边Bot活动上线</b>：端内赛道阵营选择 + 社区讨论</div><span class="wbadge actbadge eng">促活</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot plan"></div><div class="winfo"><div class="wtitle">爽玩服体验反馈汇总帖</div><span class="wbadge actbadge eco">生态</span></div></div></div>
+</div>
+<div class="wcard">
+<div class="whdr"><span class="wweek">W4</span><span class="wdate">8.25 – 8.31</span></div>
+<div class="wtheme">赛道选边深化 + 月末收尾</div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot conf"></div><div class="winfo"><div class="wtitle">赛道选边Bot活动持续：阵营战绩公布 + 讨论话题引导</div><span class="wbadge actbadge eng">促活</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot plan"></div><div class="winfo"><div class="wtitle">新用户欢迎帖迭代 + 新手问答频道优化</div><span class="wbadge actbadge ret">留存</span></div></div></div>
+<div style="margin-bottom:7px"><div class="witem"><div class="wdot plan"></div><div class="winfo"><div class="wtitle">8月数据汇总 + 9月规划初稿</div><span class="wbadge actbadge eco">生态</span></div></div></div>
+</div>
+</div>
+<div class="sinsi">8月规划以双节点（811预约+820上线）为骨架，逻辑清晰：预热期蓄水→爆发期转化→收尾期沉淀。但需警惕三个风险：①私信群发在Discord上有频次限制与用户反感阈值；②赛道选边Bot依赖技术实现质量，上线延迟会打乱节奏；③W4缺乏明确的促活手段可能导致月末热度断崖。建议预留B方案应对节点漂移。</div>
+</div>
+
+<!-- EU 8月规划 -->
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#8b5cf6"></div><h2>EU 服 · 8月提升规划</h2><small>2026年8月</small></div>
+<div class="pstrats">
+<div class="psitem"><div class="psnum">1</div>稳住核心圈层：延续赛事竞猜、车辆分享和挑战赛</div>
+<div class="psitem"><div class="psnum">2</div>承接新用户：增加欢迎帖、新手问答、回流签到</div>
+<div class="psitem"><div class="psnum">3</div>建立反馈闭环：同步卡顿、掉帧、模式重复等问题处理进度</div>
+</div>
+<div class="sinsi">EU服8月规划过于被动——仅靠"稳住+承接+反馈"三项维持策略，缺乏节点驱动型活动。EU当前人均聊天211条、核心圈层活跃度极高，是内容共创的优质土壤，应至少增加1个UGC导向活动（如车辆改装挑战、赛道创作赛）释放核心用户创作力。</div>
+</div>
+
+</section>
+
+<!-- ===== 社区活动 ===== -->
+<section id="activities" class="module">
+
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#f59e0b"></div><h2>SEA 服 · 社区活动</h2></div>
+<div class="table-wrap"><table>
+<tr><th>活动名称</th><th>目标维度</th><th>活动周期</th><th>参与</th><th>反应</th><th>评论</th><th>正%</th><th>评分</th><th>活动目的</th><th>具体玩法</th></tr>
+<tr>
+<td><b>Pitch Guess Party</b></td>
+<td><span class="actbadge eng">促活</span></td><td>06.29–07.20</td><td>27</td><td>151</td><td>74</td><td>78%</td><td>79</td>
+<td>借欧洲杯/国际足球赛事热度，通过预测竞猜拉动玩家每日回访</td>
+<td>每日在 #pitch-guess-discussion 发布赛果预测，猜对得积分，按积分档位分层抽奖</td>
+</tr>
+<tr>
+<td><b>Traffic Overdrive Feedback Event</b></td>
+<td><span class="actbadge eng">促活</span></td><td>07.28–08.03</td><td>47</td><td>168</td><td>47</td><td>9%</td><td>65</td>
+<td>收集新模式反馈并借抽奖促活</td>
+<td>7天内在指定论坛发布1条原创体验/建议获抽奖资格，每账号限1次，随机抽20人</td>
+</tr>
+</table></div>
+<div class="sinsi" style="margin-top:10px">Pitch Guess Party（评分79、正反馈78%）验证了竞猜+分层抽奖模式的促活有效性；Traffic Overdrive（评分65、正反馈仅9%）暴露出奖励设计粗放、参与门槛过高的短板——活动机制需要从"发布即结束"转向"参与有反馈"的闭环设计。</div>
+</div>
+
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#f59e0b"></div><h2>EU 服 · 社区活动</h2></div>
+<div class="table-wrap"><table>
+<tr><th>活动名称</th><th>目标维度</th><th>活动周期</th><th>参与</th><th>反应</th><th>评论</th><th>正%</th><th>评分</th><th>活动目的</th><th>具体玩法</th></tr>
+<tr>
+<td><b>Pitch Guess Party</b></td>
+<td><span class="actbadge eng">促活</span></td><td>06.29–07.20</td><td>32</td><td>104</td><td>350</td><td>80%</td><td>80</td>
+<td>借国际足球赛事热度，通过预测竞猜拉动玩家每日回访</td>
+<td>每日在 #pitch-guess-discussion 发布赛果预测，猜对得积分，按积分档位分层抽奖</td>
+</tr>
+</table></div>
+<div class="sinsi" style="margin-top:10px">EU仅举办Pitch Guess Party一项活动但正反馈达80%、评分80，高于SEA同款活动——说明活动不在于多而在于与社区兴趣匹配。EU当前活动供给严重不足，应加大投入。</div>
+</div>
+
+</section>
+
+<!-- ===== 社区舆情 ===== -->
+<section id="sentiment" class="module">
+
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>SEA 服 · 社区舆情</h2></div>
+<div class="mgrid">
+<div class="mcard"><div class="mlabel">总消息量</div><div class="mval">932</div></div>
+<div class="mcard"><div class="mlabel">正面</div><div class="mval">96</div><div class="mchg up">10.3%</div></div>
+<div class="mcard"><div class="mlabel">负面</div><div class="mval">63</div><div class="mchg dn">6.8%</div></div>
+<div class="mcard"><div class="mlabel">中性</div><div class="mval">773</div><div class="mchg flat">82.9%</div></div>
+</div>
+<div class="sent-row">
+<div class="donut" style="background:conic-gradient(#22c55e 0deg 37.1deg,#94a3b8 37.1deg 335.5deg,#ef4444 335.5deg 360deg)">
+<div class="donut-inner"><b>932</b><small>总消息</small></div></div>
+<div class="legend">
+<div class="lr"><span class="ldot" style="background:#22c55e"></span><span class="lname">正面</span><span class="lval" style="color:#16a34a">10.3%</span></div>
+<div class="lr"><span class="ldot" style="background:#94a3b8"></span><span class="lname">中性</span><span class="lval" style="color:#64748b">82.9%</span></div>
+<div class="lr"><span class="ldot" style="background:#ef4444"></span><span class="lname">负面</span><span class="lval" style="color:#dc2626">6.8%</span></div>
+</div>
+</div>
+<div style="background:#f8fafc;border-radius:8px;padding:14px;font-size:12px;line-height:1.7">
+<b>摘要：</b>讨论以中性为主（82.9%），正面（10.3%）略高于负面（6.8%），整体健康。讨论量逐周攀升（1-7日98条→23-30日364条，+271%）。正面来自日常互动、赛事竞猜、内容分享；负面集中在Traffic Overdrive（奖励重复、耗时过长、RNG重、AI异常）与越野模式（地图重复、枯燥）。
+</div>
+
+<div class="sec-head" style="margin-top:16px;margin-bottom:8px"><div class="bar" style="height:3px;background:#94a3b8"></div><h2 style="font-size:14px">引用原文 & 链接</h2></div>
+<div class="quote">After this update, the game so lag! And always freeze after click Find Race!!!<a href="https://discord.com/channels/1313761105377497128/1389082780876410920/1522424421787373620" target="_blank">打开 Discord 原文</a></div>
+<div class="quote">the traffic overdrive has so many bug... i suddenly flying after I got a boost... the npc car move faster than my la Ferrari<a href="https://discord.com/channels/1313761105377497128/1389082780876410920/1530261971075600636" target="_blank">打开 Discord 原文</a></div>
+<div class="quote">the active aero on Murcielago kinda duplicates a static model when doing photo mode<a href="https://discord.com/channels/1313761105377497128/1389082780876410920/1524464416404541721" target="_blank">打开 Discord 原文</a></div>
+</div>
+
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>EU 服 · 社区舆情</h2></div>
+<div class="mgrid">
+<div class="mcard"><div class="mlabel">总消息量</div><div class="mval">865</div></div>
+<div class="mcard"><div class="mlabel">正面</div><div class="mval">126</div><div class="mchg up">14.6%</div></div>
+<div class="mcard"><div class="mlabel">负面</div><div class="mval">59</div><div class="mchg dn">6.8%</div></div>
+<div class="mcard"><div class="mlabel">中性</div><div class="mval">680</div><div class="mchg flat">78.6%</div></div>
+</div>
+<div class="sent-row">
+<div class="donut" style="background:conic-gradient(#22c55e 0deg 52.6deg,#94a3b8 52.6deg 335.5deg,#ef4444 335.5deg 360deg)">
+<div class="donut-inner"><b>865</b><small>总消息</small></div></div>
+<div class="legend">
+<div class="lr"><span class="ldot" style="background:#22c55e"></span><span class="lname">正面</span><span class="lval" style="color:#16a34a">14.6%</span></div>
+<div class="lr"><span class="ldot" style="background:#94a3b8"></span><span class="lname">中性</span><span class="lval" style="color:#64748b">78.6%</span></div>
+<div class="lr"><span class="ldot" style="background:#ef4444"></span><span class="lname">负面</span><span class="lval" style="color:#dc2626">6.8%</span></div>
+</div>
+</div>
+<div style="background:#f8fafc;border-radius:8px;padding:14px;font-size:12px;line-height:1.7">
+<b>摘要：</b>讨论以中性为主（78.6%），正面（14.6%）明显高于负面（6.8%）。15-22周达高峰（377条）。人均211条/人远高于SEA的57，核心聊天圈层黏性强；负面集中在卡顿/掉帧、抽卡肝度、模式重复，占比较低且分散。
+</div>
+
+<div class="sec-head" style="margin-top:16px;margin-bottom:8px"><div class="bar" style="height:3px;background:#94a3b8"></div><h2 style="font-size:14px">引用原文 & 链接</h2></div>
+<div class="quote">Ahh not quite.. it is more of a personal problem but working on it<a href="https://discord.com/channels/818758799816785951/819494162168020993/1524144598228799779" target="_blank">打开 Discord 原文</a></div>
+<div class="quote">damn I swear this corner keeps lagging on my phone smh<a href="https://discord.com/channels/818758799816785951/819494162168020993/1528810915316666398" target="_blank">打开 Discord 原文</a></div>
+<div class="quote">ye that weird light was definitely a big red flag<a href="https://discord.com/channels/818758799816785951/819494162168020993/1530962439435194500" target="_blank">打开 Discord 原文</a></div>
+</div>
+
+</section>
+
+<!-- ===== MOD管理员 ===== -->
+<section id="mod" class="module">
+
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#8b5cf6"></div><h2>SEA 服 · MOD管理员</h2></div>
+<div class="mgrid">
+<div class="mcard"><div class="mlabel">版主规模</div><div class="mval">5</div><div class="mdesc">2高级 + 3见习</div></div>
+<div class="mcard"><div class="mlabel">违规处理</div><div class="mval">61</div><div class="mdesc">月内处理总数</div></div>
+<div class="mcard"><div class="mlabel">响应时效</div><div class="mval">18 min</div><div class="mdesc">从举报到处理</div></div>
+<div class="mcard"><div class="mlabel">高级 MOD</div><div class="mval" style="font-size:18px;color:#16a34a">活跃/正常</div></div>
+<div class="mcard"><div class="mlabel">见习 MOD</div><div class="mval" style="color:#f59e0b;font-size:18px">低活跃</div><div class="mdesc" style="color:#f59e0b">需提升覆盖</div></div>
+</div>
+<div class="table-wrap" style="margin-top:12px"><table>
+<tr><th>维度</th><th>数值/状态</th><th>说明</th></tr>
+<tr><td>典型案例1</td><td>删除违规消息</td><td>清理多个频道内涉及违反规则的消息</td></tr>
+<tr><td>典型案例2</td><td>封禁</td><td>全部标注 Compromised or hacked account（盗号），7/24-31集中处理</td></tr>
+</table></div>
+</div>
+
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#8b5cf6"></div><h2>EU 服 · MOD管理员</h2></div>
+<div class="mgrid">
+<div class="mcard"><div class="mlabel">版主规模</div><div class="mval">6</div><div class="mdesc">2高级 + 4见习</div></div>
+<div class="mcard"><div class="mlabel">审计操作</div><div class="mval">159</div><div class="mdesc">月内可见操作</div></div>
+<div class="mcard"><div class="mlabel">响应时效</div><div class="mval" style="color:#f59e0b;font-size:18px">无法统计</div><div class="mdesc" style="color:#f59e0b">日志无时间戳</div></div>
+<div class="mcard"><div class="mlabel">高级 MOD</div><div class="mval" style="font-size:18px;color:#16a34a">活跃/正常</div><div class="mdesc">核心执行</div></div>
+</div>
+<div class="table-wrap" style="margin-top:12px"><table>
+<tr><th>维度</th><th>数值/状态</th><th>说明</th></tr>
+<tr><td>典型案例1</td><td>删除违规消息</td><td>全团队删消息37次（avengersman 19、_.faun 17），跨频道清理</td></tr>
+<tr><td>典型案例2</td><td>封禁</td><td>封禁20次，涉及盗号、可疑/垃圾账号</td></tr>
+<tr><td>典型案例3</td><td>自动审核+权限</td><td>AutoMod拦截11次，频道/权限调整20+次</td></tr>
+</table></div>
+</div>
+
+</section>
+
+<!-- ===== 竞品动态 ===== -->
+<section id="competitors" class="module">
+
+<div class="card">
+<div class="sec-head"><div class="bar"></div><h2>竞品总览</h2></div>
+<div class="table-wrap"><table>
+<tr><th>竞品</th><th>社区规模</th><th>日均消息</th><th>独立用户</th><th>公告数</th><th>正/负面比</th><th>舆情</th></tr>
+<tr><td><b>Asphalt Legends</b></td><td>328,711</td><td>~2,000<sup style="font-size:9px;color:#ef4444">⚠</sup></td><td>382</td><td><span style="text-decoration:line-through;color:#94a3b8;font-size:11px">1,702</span> 14<sup style="font-size:9px;color:#ef4444">⚠</sup></td><td>13.0:1</td><td><span style="color:#4ade80;font-weight:600">良好</span></td></tr>
+<tr><td><b>Forza</b></td><td>234,245</td><td>~89</td><td>373</td><td>48</td><td>26.6:1</td><td><span style="color:#22c55e;font-weight:600">极佳</span></td></tr>
+</table></div>
+<div class="sinsi">Forza以48条公告做内容轰炸、正面舆情比26.6:1碾压式领先，其策略核心是"高频低门槛内容输出驱动社区正反馈"；Asphalt Legends虽社区规模大（32.8万），但官方公告仅14条且集中在Bug修复，内容运营投入明显不足——Racing Master应取Forza的内容频次之长、避Asphalt的服务短板。</div>
+</div>
+
+<div class="card">
+<div class="sec-head"><div class="bar" style="background:#22c55e"></div><h2>本月关键发现</h2></div>
+<div class="isgrid">
+<div class="icard pos"><h4>Forza Horizon 6 内容轰炸</h4><p>48条公告密集发布FH6车辆/涂装/活动内容（LEGO联名、Master Chief涂装、Italian Exotics等），社区内容运营力度远超其他竞品。</p></div>
+<div class="icard" style="background:#fefce8;border:1px solid #fde68a"><h4>Asphalt Legends 公告量口径修正 ⚠</h4><p>原始口径1,702条公告误将events频道（玩家日常聊天2,000+条）与mod-info频道（社区Mod帖79条）纳入统计。剔除后真实官方公告仅14条（game-news 4 + hot-topics 10），日均消息基于仅1-3天采样窗口推算，需谨慎引用。</p></div>
+</div>
+</div>
+
+<!-- Asphalt Legends 详情 -->
+<div class="comp-card">
+<div class="comp-accent" style="background:linear-gradient(90deg,#4ade80,#818cf8)"></div>
+<div class="comp-body">
+<div class="comp-hdr">
+<div><h3>Asphalt Legends</h3><div class="csub">对标：Racing Master</div></div>
+<div class="comp-senti"><span style="font-size:11px;color:#64748b">舆情</span><span class="csval" style="color:#4ade80">13.0:1</span><span style="font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(74,222,128,.1);color:#4ade80;font-weight:600">良好</span></div>
+</div>
+<div class="comp-kpis">
+<div class="comp-kpi"><div class="cklab">社区规模</div><div class="ckval">328,711</div></div>
+<div class="comp-kpi"><div class="cklab">日均消息</div><div class="ckval">~2,000</div></div>
+<div class="comp-kpi"><div class="cklab">独立用户</div><div class="ckval">382</div></div>
+<div class="comp-kpi"><div class="cklab">公告消息</div><div class="ckval" style="color:#5865F2"><span style="text-decoration:line-through;color:#94a3b8;font-size:13px">1,702</span> 14</div></div>
+</div>
+<div class="comp-2col">
+<div class="comp-box">
+<div class="cbhdr"><b>核心公告</b><span>共 14 条（game-news 4 + hot-topics 10；原口径1,702含events聊天2,000+条）</span></div>
+<div style="font-size:11px;color:#475569;line-height:1.6">#Game News: 7/24路线图更新、7/20新赛季预告、7/9 Sonic Ace Challenge收官<br>#Hot Topics: Gauntlet Division/Ranking、Gauntlet Issues Fixed、Google Play Hotfix</div>
+</div>
+<div class="comp-box">
+<div class="cbhdr"><b>社区活动</b><span>1 项</span></div>
+<div style="font-size:11px;color:#475569;line-height:1.6">Sonic Ace Challenge 2026-07-09：索尼克联动挑战赛收官，Hypersport Neon解锁</div>
+</div>
+</div>
+<div class="comp-2col">
+<div class="comp-pos">
+<div style="font-weight:700;font-size:12px;color:#166534;margin-bottom:10px"><span class="tag-pos"></span>正面舆情 TOP3</div>
+<div class="sotop"><span class="sonum" style="background:rgba(34,197,94,.15);color:#16a34a">1</span><span class="sotitle">Roadmap Update路线图公布</span></div><div class="sodesc">7月24日路线图更新公告，玩家对后续内容规划反应积极</div>
+<div class="sotop"><span class="sonum" style="background:rgba(34,197,94,.15);color:#16a34a">2</span><span class="sotitle">Sonic Ace Challenge活动</span></div><div class="sodesc">7月9日索尼克联动挑战赛收官，Hypersport Neon解锁受追捧</div>
+<div class="sotop"><span class="sonum" style="background:rgba(34,197,94,.15);color:#16a34a">3</span><span class="sotitle">JDM TURBOFEST奖励提升</span></div><div class="sodesc">7月22日Spotlight Reward Buff公告，玩家对奖励优化表示满意</div>
+</div>
+<div class="comp-neg">
+<div style="font-weight:700;font-size:12px;color:#991b1b;margin-bottom:10px"><span class="tag-neg"></span>负面舆情 TOP3</div>
+<div class="sotop"><span class="sonum" style="background:rgba(239,68,68,.15);color:#dc2626">1</span><span class="sotitle">Gauntlet模式Bug与修复</span></div><div class="sodesc">8月4日Gauntlet Division/Ranking问题及修复公告，反映模式稳定性不足</div>
+<div class="sotop"><span class="sonum" style="background:rgba(239,68,68,.15);color:#dc2626">2</span><span class="sotitle">Google Play/iOS Hotfix频繁</span></div><div class="sodesc">7月底连续发布移动端热修复，反映版本质量问题</div>
+<div class="sotop"><span class="sonum" style="background:rgba(239,68,68,.15);color:#dc2626">3</span><span class="sotitle">新赛季内容期待与焦虑</span></div><div class="sodesc">7月20日新赛季预告后玩家对新内容质量和P2W表示担忧</div>
+</div>
+</div>
+</div>
+<div class="sinsi" style="margin-top:12px">Asphalt Legends的核心启示：大社区≠强运营。32.8万成员、13.0:1正负比的底盘很扎实，但7月仅4条游戏新闻公告、超过80%的hot-topics在应对Bug/热修复，说明官方更偏"救火"而非内容运营。Racing Master应汲取教训——在社区增长期同步建立稳定的内容更新节奏，避免步入"规模大、内容空"的陷阱。</div>
+</div>
+</div>
+
+<!-- Forza 详情 -->
+<div class="comp-card">
+<div class="comp-accent" style="background:linear-gradient(90deg,#22c55e,#818cf8)"></div>
+<div class="comp-body">
+<div class="comp-hdr">
+<div><h3>Forza</h3><div class="csub">对标：Racing Master</div></div>
+<div class="comp-senti"><span style="font-size:11px;color:#64748b">舆情</span><span class="csval" style="color:#22c55e">26.6:1</span><span style="font-size:10px;padding:2px 6px;border-radius:4px;background:rgba(34,197,94,.1);color:#22c55e;font-weight:600">极佳</span></div>
+</div>
+<div class="comp-kpis">
+<div class="comp-kpi"><div class="cklab">社区规模</div><div class="ckval">234,245</div></div>
+<div class="comp-kpi"><div class="cklab">日均消息</div><div class="ckval">~89</div></div>
+<div class="comp-kpi"><div class="cklab">独立用户</div><div class="ckval">373</div></div>
+<div class="comp-kpi"><div class="cklab">公告消息</div><div class="ckval" style="color:#5865F2">48</div></div>
+</div>
+<div class="comp-2col">
+<div class="comp-box">
+<div class="cbhdr"><b>核心公告</b><span>共 48 条</span></div>
+<div style="font-size:11px;color:#475569;line-height:1.6">#Announcements: FH6 LEGO Technic联名、Hospital Records、Italian Passion Car Pack、Master Chief涂装等密集发布</div>
+</div>
+<div class="comp-box">
+<div class="cbhdr"><b>社区活动</b><span>2 项</span></div>
+<div style="font-size:11px;color:#475569;line-height:1.6">Italian Passion Car Pack Sweepstakes 2026-07-31<br>Smash the Tank Latte Cup 2026-07-28</div>
+</div>
+</div>
+<div class="comp-2col">
+<div class="comp-pos">
+<div style="font-weight:700;font-size:12px;color:#166534;margin-bottom:10px"><span class="tag-pos"></span>正面舆情 TOP3</div>
+<div class="sotop"><span class="sonum" style="background:rgba(34,197,94,.15);color:#16a34a">1</span><span class="sotitle">Forza Horizon 6内容持续更新</span></div><div class="sodesc">FH6系列公告(LEGO涂装/Hospital Records/Italian Exotics/Master Chief等)贯穿7月，内容丰富度获赞</div>
+<div class="sotop"><span class="sonum" style="background:rgba(34,197,94,.15);color:#16a34a">2</span><span class="sotitle">Italian Passion Car Pack抽奖</span></div><div class="sodesc">7月31日车辆包抽奖活动公告，社区互动积极</div>
+<div class="sotop"><span class="sonum" style="background:rgba(34,197,94,.15);color:#16a34a">3</span><span class="sotitle">Toyota Prius等新车加入</span></div><div class="sodesc">2024 Prius Prime、1972 Nissan Patrol等新车辆持续扩充车库</div>
+</div>
+<div class="comp-neg">
+<div style="font-weight:700;font-size:12px;color:#991b1b;margin-bottom:10px"><span class="tag-neg"></span>负面舆情 TOP3</div>
+<div class="sotop"><span class="sonum" style="background:rgba(239,68,68,.15);color:#dc2626">1</span><span class="sotitle">日常活跃度偏低</span></div><div class="sodesc">日均仅89条消息，尽管内容更新频繁但聊天活跃度不高</div>
+<div class="sotop"><span class="sonum" style="background:rgba(239,68,68,.15);color:#dc2626">2</span><span class="sotitle">FH6内容期待与实际落差</span></div><div class="sodesc">部分玩家期待更大规模更新而非单一车辆/涂装</div>
+<div class="sotop"><span class="sonum" style="background:rgba(239,68,68,.15);color:#dc2626">3</span><span class="sotitle">PC性能优化反馈</span></div><div class="sodesc">少数PC玩家反馈FH6运行帧率与优化问题</div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+</main>
+
+<script>
+const btns=document.querySelectorAll('.nav-row button');
+const mods=document.querySelectorAll('.module');
+btns.forEach(b=>b.addEventListener('click',()=>{
+btns.forEach(x=>x.classList.remove('active'));
+mods.forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+const target=document.getElementById(b.dataset.target);
+if(target){target.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+}));
+</script>
+</body>
+</html>
